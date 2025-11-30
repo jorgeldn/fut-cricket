@@ -23,6 +23,7 @@ export function MatchSetupPage({ onBack }: MatchSetupPageProps) {
     const [matchDate, setMatchDate] = React.useState(new Date().toISOString().split("T")[0])
     const [generatedTeams, setGeneratedTeams] = React.useState<Team[]>([])
     const [loading, setLoading] = React.useState(true)
+    const teamsResultRef = React.useRef<HTMLDivElement>(null)
 
     React.useEffect(() => {
         const playersRef = ref(database, "players")
@@ -69,6 +70,11 @@ export function MatchSetupPage({ onBack }: MatchSetupPageProps) {
         }
         const teams = generateTeams(selectedPlayers, numTeams)
         setGeneratedTeams(teams)
+
+        // Auto-scroll to results on mobile
+        setTimeout(() => {
+            teamsResultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 100)
     }
 
     return (
@@ -175,7 +181,7 @@ export function MatchSetupPage({ onBack }: MatchSetupPageProps) {
                 </div>
 
                 {/* Results Column */}
-                <div className="lg:col-span-2">
+                <div className="lg:col-span-2" ref={teamsResultRef}>
                     {generatedTeams.length > 0 ? (
                         <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
                             <div className="flex items-center justify-between">
