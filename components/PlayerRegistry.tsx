@@ -7,10 +7,14 @@ import { Player } from "@/types/player"
 import { PlayerForm } from "@/components/PlayerForm"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent } from "@/components/ui/Card"
-import { Plus, User } from "lucide-react"
+import { Plus, User, ArrowLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export function PlayerRegistry() {
+interface PlayerRegistryProps {
+    onBack: () => void
+}
+
+export function PlayerRegistry({ onBack }: PlayerRegistryProps) {
     const [players, setPlayers] = React.useState<Player[]>([])
     const [isFormOpen, setIsFormOpen] = React.useState(false)
     const [editingPlayer, setEditingPlayer] = React.useState<Player | null>(null)
@@ -83,6 +87,18 @@ export function PlayerRegistry() {
 
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
+            {/* Back Button */}
+            <div className="mb-6">
+                <Button
+                    variant="ghost"
+                    onClick={onBack}
+                    className="gap-2 hover:bg-white/5"
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                    Voltar
+                </Button>
+            </div>
+
             <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold">Gerenciar Elenco</h2>
                 <Button onClick={handleAddNew} size="sm" className="shadow-lg shadow-primary/20">
