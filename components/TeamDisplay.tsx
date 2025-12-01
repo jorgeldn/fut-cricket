@@ -33,7 +33,15 @@ export function TeamDisplay({ teams }: TeamDisplayProps) {
                                         </div>
                                         <div>
                                             <div className="font-medium text-sm">{player.name}</div>
-                                            <div className="text-[10px] text-muted-foreground">{player.type}</div>
+                                            <div className="flex items-center gap-2 flex-wrap">
+                                                <div className="text-[10px] text-muted-foreground">{player.type}</div>
+                                                {player.positions && player.positions.length > 0 && (
+                                                    <>
+                                                        <span className="text-[10px] text-muted-foreground">•</span>
+                                                        <div className="text-[10px] text-primary/70">{player.positions.join(", ")}</div>
+                                                    </>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="font-bold text-sm text-muted-foreground">

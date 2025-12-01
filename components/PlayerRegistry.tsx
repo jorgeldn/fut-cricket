@@ -29,6 +29,17 @@ export function PlayerRegistry({ onBack }: PlayerRegistryProps) {
                     id,
                     ...player,
                 }))
+
+                // Sort: Mensalistas first (alphabetically), then Diaristas (alphabetically)
+                playerList.sort((a, b) => {
+                    // First sort by type (Mensalista before Diarista)
+                    if (a.type !== b.type) {
+                        return a.type === "Mensalista" ? -1 : 1
+                    }
+                    // Then sort alphabetically by name
+                    return a.name.localeCompare(b.name, 'pt-BR')
+                })
+
                 setPlayers(playerList)
             } else {
                 setPlayers([])
@@ -131,14 +142,22 @@ export function PlayerRegistry({ onBack }: PlayerRegistryProps) {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <h3 className="font-semibold truncate text-white group-hover:text-primary transition-colors">{player.name}</h3>
-                                    <p className="text-xs text-muted-foreground">{player.type}</p>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        <p className="text-xs text-muted-foreground">{player.type}</p>
+                                        {player.positions && player.positions.length > 0 && (
+                                            <>
+                                                <span className="text-xs text-muted-foreground">•</span>
+                                                <p className="text-xs text-primary/80">{player.positions.join(", ")}</p>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                                 <div className="text-right shrink-0">
                                     <div className="text-2xl font-bold text-primary">
                                         {getOverall(player.skills)}
                                     </div>
                                     <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">
-                                        Overall
+                                        Pontuação
                                     </div>
                                 </div>
                             </CardContent>

@@ -34,6 +34,17 @@ export function MatchSetupPage({ onBack }: MatchSetupPageProps) {
                     id,
                     ...player,
                 }))
+
+                // Sort: Mensalistas first (alphabetically), then Diaristas (alphabetically)
+                playerList.sort((a, b) => {
+                    // First sort by type (Mensalista before Diarista)
+                    if (a.type !== b.type) {
+                        return a.type === "Mensalista" ? -1 : 1
+                    }
+                    // Then sort alphabetically by name
+                    return a.name.localeCompare(b.name, 'pt-BR')
+                })
+
                 setPlayers(playerList)
             } else {
                 setPlayers([])

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { ref, push, update, remove } from "firebase/database"
 import { database } from "@/firebase-config"
-import { Player, PlayerSkills, initialSkills, PlayerType } from "@/types/player"
+import { Player, PlayerSkills, initialSkills, PlayerType, Position } from "@/types/player"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
@@ -19,6 +19,7 @@ interface PlayerFormProps {
 export function PlayerForm({ playerToEdit, onCancel, onSuccess }: PlayerFormProps) {
     const [name, setName] = React.useState(playerToEdit?.name || "")
     const [type, setType] = React.useState<PlayerType>(playerToEdit?.type || "Mensalista")
+    const [positions, setPositions] = React.useState<Position[]>(playerToEdit?.positions || [])
     const [skills, setSkills] = React.useState<PlayerSkills>(playerToEdit?.skills || initialSkills)
     const [isLoading, setIsLoading] = React.useState(false)
 
@@ -33,6 +34,7 @@ export function PlayerForm({ playerToEdit, onCancel, onSuccess }: PlayerFormProp
                 await update(playerRef, {
                     name,
                     type,
+                    positions,
                     skills,
                 })
             } else {
@@ -40,11 +42,13 @@ export function PlayerForm({ playerToEdit, onCancel, onSuccess }: PlayerFormProp
                 await push(playersRef, {
                     name,
                     type,
+                    positions,
                     skills,
                     createdAt: Date.now(),
                 })
             }
             setName("")
+            setPositions([])
             setSkills(initialSkills)
             onSuccess?.()
         } catch (error) {
@@ -113,6 +117,29 @@ export function PlayerForm({ playerToEdit, onCancel, onSuccess }: PlayerFormProp
                                     />
                                     Diarista
                                 </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="text-sm font-medium mb-2 block">Posições</label>
+                            <div className="flex gap-4">
+                                {(["Defesa", "Meio", "Ataque"] as Position[]).map((position) => (
+                                    <label key={position} className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={positions.includes(position)}
+                                            onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    setPositions([...positions, position])
+                                                } else {
+                                                    setPositions(positions.filter((p) => p !== position))
+                                                }
+                                            }}
+                                            className="w-4 h-4 text-primary rounded"
+                                        />
+                                        {position}
+                                    </label>
+                                ))}
                             </div>
                         </div>
 

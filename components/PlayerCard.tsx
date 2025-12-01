@@ -2,7 +2,7 @@
 
 import { Player } from "@/db/schema";
 import { deletePlayer } from "@/app/actions";
-import { Zap, Brain, BicepsFlexed, Glasses, Trophy, Trash2 } from "lucide-react";
+import { Zap, Brain, BicepsFlexed, Glasses, CircleDot, Trash2 } from "lucide-react";
 
 export default function PlayerCard({ player }: { player: Player }) {
     const overall = (
@@ -29,7 +29,7 @@ export default function PlayerCard({ player }: { player: Player }) {
                 </div>
                 <div className="flex flex-col items-end">
                     <span className="text-2xl font-black text-green-600">{overall}</span>
-                    <span className="text-xs text-gray-400 font-medium">OVERALL</span>
+                    <span className="text-xs text-gray-400 font-medium">Pontuação</span>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@ export default function PlayerCard({ player }: { player: Player }) {
                 <SkillIcon icon={<Brain size={14} />} value={player.intelligence} color="text-pink-500" />
                 <SkillIcon icon={<BicepsFlexed size={14} />} value={player.stamina} color="text-red-500" />
                 <SkillIcon icon={<Glasses size={14} />} value={player.vision} color="text-blue-500" />
-                <SkillIcon icon={<Trophy size={14} />} value={player.skill} color="text-yellow-600" />
+                <SkillIcon icon={<CircleDot size={14} />} value={player.skill} color="text-yellow-600" />
             </div>
 
             <button

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Zap, Dumbbell, Brain, Glasses, Trophy } from "lucide-react"
+import { Zap, Dumbbell, Brain, Glasses, CircleDot } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface SkillRatingProps {
@@ -15,7 +15,7 @@ const icons = {
     stamina: Dumbbell,
     intelligence: Brain,
     vision: Glasses,
-    technique: Trophy,
+    technique: CircleDot,
 }
 
 const colors = {
@@ -29,6 +29,23 @@ const colors = {
 export function SkillRating({ label, value, onChange, readonly = false, icon }: SkillRatingProps) {
     const Icon = icons[icon]
     const color = colors[icon]
+
+    // Calculate gradient color from red to green based on value
+    const getGradientColor = (rating: number) => {
+        if (value < rating) return "bg-secondary/50 text-muted-foreground border-white/5"
+
+        // Create a gradient from red (hsl(0, 70%, 50%)) to green (hsl(120, 70%, 50%))
+        const hue = ((value - 1) / 4) * 120 // Maps 1-5 to 0-120 degrees (red to green)
+        return `text-white shadow-md`
+    }
+
+    const getBackgroundStyle = (rating: number) => {
+        if (value < rating) return {}
+        const hue = ((value - 1) / 4) * 120 // Maps 1-5 to 0-120 degrees (red to green)
+        return {
+            backgroundColor: `hsl(${hue}, 70%, 50%)`,
+        }
+    }
 
     return (
         <div className="flex items-center gap-4 py-2">
@@ -44,19 +61,17 @@ export function SkillRating({ label, value, onChange, readonly = false, icon }: 
                         type="button"
                         disabled={readonly}
                         onClick={() => onChange?.(rating)}
+                        style={getBackgroundStyle(rating)}
                         className={cn(
                             "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all border border-transparent",
                             readonly ? "cursor-default" : "cursor-pointer hover:scale-110",
-                            value >= rating
-                                ? "bg-primary text-primary-foreground shadow-md shadow-primary/30"
-                                : "bg-secondary/50 text-muted-foreground border-white/5"
+                            getGradientColor(rating)
                         )}
                     >
                         {rating}
                     </button>
                 ))}
             </div>
-            <span className="w-8 text-center font-bold text-lg text-primary">{value}</span>
         </div>
     )
 }

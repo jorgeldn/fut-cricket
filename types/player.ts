@@ -1,4 +1,5 @@
 export type PlayerType = "Mensalista" | "Diarista"
+export type Position = "Defesa" | "Meio" | "Ataque"
 
 export interface PlayerSkills {
     speed: number
@@ -12,6 +13,7 @@ export interface Player {
     id: string
     name: string
     type: PlayerType
+    positions: Position[]
     skills: PlayerSkills
     createdAt: number
 }
