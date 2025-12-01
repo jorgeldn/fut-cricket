@@ -2,6 +2,7 @@ import * as React from "react"
 import { Team } from "@/lib/balancing"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { calculateScore } from "@/lib/balancing"
+import { getSimpleInitials } from "@/lib/initials"
 
 interface TeamDisplayProps {
     teams: Team[]
@@ -29,7 +30,7 @@ export function TeamDisplay({ teams }: TeamDisplayProps) {
                                 <li key={player.id} className="p-3 flex justify-between items-center hover:bg-secondary/10">
                                     <div className="flex items-center gap-3">
                                         <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
-                                            {player.name.substring(0, 2).toUpperCase()}
+                                            {getSimpleInitials(player.name)}
                                         </div>
                                         <div>
                                             <div className="font-medium text-sm">{player.name}</div>

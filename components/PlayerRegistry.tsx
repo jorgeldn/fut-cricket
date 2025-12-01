@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button"
 import { Card, CardContent } from "@/components/ui/Card"
 import { Plus, User, ArrowLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { generateInitials } from "@/lib/initials"
 
 interface PlayerRegistryProps {
     onBack: () => void
@@ -65,13 +66,8 @@ export function PlayerRegistry({ onBack }: PlayerRegistryProps) {
         setEditingPlayer(null)
     }
 
-    const getInitials = (name: string) => {
-        return name
-            .split(" ")
-            .map((n) => n[0])
-            .join("")
-            .toUpperCase()
-            .slice(0, 2)
+    const getInitials = (player: Player) => {
+        return generateInitials(player.name, players.map(p => p.name))
     }
 
     const getOverall = (skills: Player["skills"]) => {
@@ -138,7 +134,7 @@ export function PlayerRegistry({ onBack }: PlayerRegistryProps) {
                         >
                             <CardContent className="p-4 flex items-center gap-4">
                                 <div className="h-12 w-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-primary font-bold text-lg shrink-0 border border-primary/20 group-hover:scale-110 transition-transform">
-                                    {getInitials(player.name)}
+                                    {getInitials(player)}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <h3 className="font-semibold truncate text-white group-hover:text-primary transition-colors">{player.name}</h3>

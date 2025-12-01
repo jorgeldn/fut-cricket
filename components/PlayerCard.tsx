@@ -3,6 +3,7 @@
 import { Player } from "@/db/schema";
 import { deletePlayer } from "@/app/actions";
 import { Zap, Brain, BicepsFlexed, Glasses, CircleDot, Trash2 } from "lucide-react";
+import { getSimpleInitials } from "@/lib/initials";
 
 export default function PlayerCard({ player }: { player: Player }) {
     const overall = (
@@ -17,7 +18,7 @@ export default function PlayerCard({ player }: { player: Player }) {
                         {player.avatar ? (
                             <img src={player.avatar} alt={player.name} className="w-full h-full object-cover" />
                         ) : (
-                            player.name.substring(0, 2).toUpperCase()
+                            getSimpleInitials(player.name)
                         )}
                     </div>
                     <div>
