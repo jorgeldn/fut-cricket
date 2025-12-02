@@ -113,14 +113,14 @@ export function MatchSetupPage({ onBack }: MatchSetupPageProps) {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <div>
+                            {/* <div>
                                 <label className="text-sm font-medium mb-1 block text-muted-foreground">Data do Jogo</label>
                                 <Input
                                     type="date"
                                     value={matchDate}
                                     onChange={(e) => setMatchDate(e.target.value)}
                                 />
-                            </div>
+                            </div> */}
                             <div>
                                 <label className="text-sm font-medium mb-1 block text-muted-foreground">Quantidade de Times</label>
                                 <Input

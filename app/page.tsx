@@ -30,9 +30,7 @@ export default function FutCricketApp() {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setCurrentView("home")}
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center text-white font-bold">
-              FC
-            </div>
+            <img src="/logo.svg" alt="Fut Cricket Logo" className="w-10 h-10" />
             <h1 className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">
               Fut Cricket
             </h1>

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fut Cricket 🏏⚽",
-  description: "Gerenciador de peladas com balanceamento de times.",
+  title: "Futebol Rio Cricket",
+  description: "Gerenciador de peladas com balanceamento de times por pontuação",
 };
 
 export default function RootLayout({
